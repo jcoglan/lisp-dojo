@@ -1,0 +1,42 @@
+grammar Lisp
+  rule program
+    cell* <RubyLisp::Program>
+  end
+  
+  rule cell
+    (space* expression space*) <RubyLisp::Cell>
+  end
+  
+  rule expression
+    list | boolean | number | identifier
+  end
+  
+  rule list
+    ('(' cell+ ')') <RubyLisp::List>
+  end
+  
+  rule boolean
+    ('#t' | '#f') <RubyLisp::Boolean>
+  end
+  
+  rule number
+    ('-'? ('0' | [1-9] [0-9]*) ('.' [0-9]+)?) <RubyLisp::Number>
+  end
+  
+  rule identifier
+    (~delimiter)+ <RubyLisp::Identifier>
+  end
+  
+  rule delimiter
+    '#' | paren | space
+  end
+  
+  rule paren
+    '(' | ')'
+  end
+  
+  rule space
+    [\s\n\r\t]
+  end
+end
+

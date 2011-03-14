@@ -1,0 +1,23 @@
+#! /usr/bin/env ruby
+require 'rubygems'
+require 'bundler/setup'
+require 'readline'
+require File.dirname(__FILE__) + '/../lib/ruby_lisp'
+
+trap('INT') { exit }
+
+scope = RubyLisp::Scope.new
+
+loop do
+  source = Readline.readline('>> ')
+  Readline::HISTORY << source
+  
+  begin
+    result = RubyLisp.parse(source).eval(scope)
+    raise 'Got NIL -- need to write more code!' if result.nil?
+    puts "=> #{result}"
+  rescue Object => e
+    puts "[ERROR] #{e}"
+  end
+end
+
