@@ -5,7 +5,7 @@ require 'rspec'
 require File.dirname(__FILE__) + '/../../lib/ruby_lisp'
 
 Before do
-  @scope = RubyLisp::Scope.new
+  @scope = RubyLisp::TopLevelScope.new
 end
 
 When /^I run the program$/ do |source|

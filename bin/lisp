@@ -6,7 +6,7 @@ require File.dirname(__FILE__) + '/../lib/ruby_lisp'
 
 trap('INT') { exit }
 
-scope = RubyLisp::Scope.new
+scope = RubyLisp::TopLevelScope.new
 
 loop do
   source = Readline.readline('>> ')

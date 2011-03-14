@@ -5,7 +5,9 @@ module RubyLisp
   
   ROOT = File.expand_path(File.dirname(__FILE__))
   
-  autoload :Scope,      ROOT + '/ruby_lisp/scope'
+  autoload :Scope,         ROOT + '/ruby_lisp/scope'
+  autoload :TopLevelScope, ROOT + '/ruby_lisp/scope'
+  
   autoload :Boolean,    ROOT + '/ruby_lisp/boolean'
   autoload :List,       ROOT + '/ruby_lisp/list'
   autoload :Number,     ROOT + '/ruby_lisp/number'
