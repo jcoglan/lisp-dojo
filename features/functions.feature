@@ -43,6 +43,18 @@ Feature: User-defined functions
     Then I should get "6"
 
   @step9
+  Scenario: Variables are scoped to the function
+    When I run the program
+    """
+      (define square (lambda (x) (* x x)))
+      
+      (define x 8)
+      (square 3)
+      x
+    """
+    Then I should get "8"
+
+  @step9
   Scenario: Functions can recurse
     When I run the program
     """
@@ -54,18 +66,6 @@ Feature: User-defined functions
       (factorial 6)
     """
     Then I should get "720"
-
-  @step9
-  Scenario: Variables are scoped to the function
-    When I run the program
-    """
-      (define square (lambda (x) (* x x)))
-      
-      (define x 8)
-      (square 3)
-      x
-    """
-    Then I should get "8"
 
   @step10
   Scenario: Functions are lexical closures
