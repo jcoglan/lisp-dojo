@@ -1,6 +1,6 @@
-@step3
 Feature: Variables
 
+  @step3
   Scenario: Evaluate a known variable
     Given the variable "the-var" has value "10"
     When I run the program
@@ -9,6 +9,7 @@ Feature: Variables
     """
     Then I should get "10"
 
+  @step3
   Scenario: Evaluate an undefined variable
     When I run the program
     """
@@ -16,10 +17,20 @@ Feature: Variables
     """
     Then I should get an error
 
+  @step3
   Scenario: Evaluate a function reference
     When I run the program
     """
       +
     """
     Then I should get a function
+
+  @step5
+  Scenario: Defining a variable
+    When I run the program
+    """
+      (define my-var 15)
+      my-var
+    """
+    Then I should get "15"
 

@@ -21,6 +21,8 @@ When /^I run the program$/ do |source|
 end
 
 Then /^I should get "([^"]*)"$/ do |result|
+  p @error if @error
+  @error.should be_nil
   @result.should == eval(result)
 end
 
