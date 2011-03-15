@@ -1,43 +1,37 @@
 @step4
 Feature: Arithmetic functions
 
-  Scenario: Adding two integers
+  Scenario Outline: Arithmetic operators
     When I run the program
     """
-      (+ 3 4)
+      <program>
     """
-    Then I should get "7"
+    Then I should get "<result>"
+  Examples:
+    | program  | result |
+    | (+ 3 4)  | 7      |
+    | (- 8 2)  | 6      |
+    | (* 9 7 ) | 63     |
+    | (/ 12 4) | 3      |
 
-  Scenario: Dividing two integers
+  Scenario Outline: Comparison operators
     When I run the program
     """
-      (/ 12 4)
+      <program>
     """
-    Then I should get "3"
-
-  Scenario: Greater than function
-    When I run the program
-    """
-      (> 4 3)
-    """
-    Then I should get "true"
-    When I run the program
-    """
-      (> 7 8)
-    """
-    Then I should get "false"
-
-  Scenario: Equality function
-    When I run the program
-    """
-      (= 4 3)
-    """
-    Then I should get "false"
-    When I run the program
-    """
-      (= 3 3)
-    """
-    Then I should get "true"
+    Then I should get "<result>"
+  Examples:
+    | program  | result |
+    | (> 4 3)  | true   |
+    | (> 7 8)  | false  |
+    | (>= 3 3) | true   |
+    | (>= 3 5) | false  |
+    | (< 4 3)  | false  |
+    | (< 7 8)  | true   |
+    | (<= 3 3) | true   |
+    | (<= 5 3) | false  |
+    | (= 7 7)  | true   |
+    | (= 9 2)  | false  |
 
   Scenario: Compound expression
     When I run the program
