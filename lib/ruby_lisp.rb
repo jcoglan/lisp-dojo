@@ -21,6 +21,10 @@ module RubyLisp
   end
   
   module Cell
+    def value
+      expression.value
+    end
+    
     def eval(scope)
       expression.eval(scope)
     end
