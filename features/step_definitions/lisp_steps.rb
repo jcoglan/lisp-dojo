@@ -24,6 +24,10 @@ Then /^I should get "([^"]*)"$/ do |result|
   @result.should == eval(result)
 end
 
+Then /^I should get a function$/ do
+  @result.should be_kind_of(RubyLisp::Function)
+end
+
 Then /^I should get an error$/ do
   @error.should be
 end

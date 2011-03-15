@@ -16,3 +16,10 @@ Feature: Variables
     """
     Then I should get an error
 
+  Scenario: Evaluate a function reference
+    When I run the program
+    """
+      +
+    """
+    Then I should get a function
+
