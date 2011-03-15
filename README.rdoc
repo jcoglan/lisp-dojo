@@ -1,0 +1,33 @@
+= Lisp dojo
+
+This is a coding exercise designed to introduce you to writing a programming
+language. It contains Cucumber tests that guide you through building a simple
+Lisp-like interpreter with the following features:
+
+* Boolean and numeric literals
+* User-defined variables
+* Arithmetic functions
+* Conditional logic
+* User-defined first-class functions
+* Lexical closures
+
+To get started, check out a copy and run
+
+  bundle install
+
+Then run the first set of tests:
+
+  rake step[1]
+
+This will give you a bunch of failing tests. It is your job to fix the tests,
+commit your code, and move on to the next step. There are 10 steps, and the rake
+task runs all the tests up to the current step to make sure you don't break
+anything as you progress.
+
+The exercise is focused on interpretation, not parsing. A parser (based on
+Citrus) is provided, and it is up to you to add meaning to the parse tree by
+interpreting it.
+
+You can interact with the language as you build it up by running <tt>bin/lisp</tt>,
+which drops you into a REPL where you can execute expressions in the language.
+
