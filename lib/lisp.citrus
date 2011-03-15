@@ -12,7 +12,7 @@ grammar Lisp
   end
   
   rule list
-    ('(' cell+ ')') <RubyLisp::List>
+    ('(' cell* ')') <RubyLisp::List>
   end
   
   rule boolean

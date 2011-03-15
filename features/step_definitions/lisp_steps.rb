@@ -21,12 +21,20 @@ When /^I run the program$/ do |source|
 end
 
 Then /^I should get "([^"]*)"$/ do |result|
-  p @error if @error
+  if @error
+    p @error
+    puts @error.backtrace
+  end
   @error.should be_nil
   @result.should == eval(result)
 end
 
 Then /^I should get a function$/ do
+  if @error
+    p @error
+    puts @error.backtrace
+  end
+  @error.should be_nil
   @result.should be_kind_of(RubyLisp::Function)
 end
 
