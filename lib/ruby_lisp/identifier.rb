@@ -14,7 +14,7 @@ module RubyLisp::Identifier
     when 'lambda'
       return RubyLisp::LambdaExpression.new
     else
-      scope[value] or raise "Unknown identifier #{value}"
+      scope[value] or raise "Unknown identifier #{value} in #{scope.bindering.inspect}"
     end
   end
 end

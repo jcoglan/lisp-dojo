@@ -4,15 +4,19 @@ module RubyLisp
   
   
   class UserFunction < Function
+    attr_accessor :scope
     
-    def initialize(scope, function_definition)
-      @scope = scope.clonify
+    def initialize(scope, arg_list, function_definition)
+      @scope = scope
+      @arg_list = arg_list.captures[:cell].first.expression.captures[:cell].map{|param| param.value}
       @function_definition = function_definition
     end
     
     def call(scope, args)
+      child_scope = @scope.clonify
+      @arg_list.zip(args) {|name, value| child_scope[name] = value.eval(scope)}
       r = nil
-      @function_definition.each{|x| r = x.eval(@scope)}
+      @function_definition.each{|x| r = x.eval(child_scope)}
       r
     end
     
@@ -20,7 +24,7 @@ module RubyLisp
   
   class LambdaExpression < Function
     def call(scope, args)
-      UserFunction.new(scope, args[1..-1])
+      UserFunction.new(scope, args[0], args[1..-1])
     end
   end
   
@@ -39,7 +43,13 @@ module RubyLisp
   
   class DefineStatement < Function
     def call(scope, args)
-      scope[args[0].value] = args[1].eval(scope)
+      name  = args[0].value
+      value = args[1].eval(scope)
+      scope[name] = value
+      if value.is_a?(UserFunction)
+        value.scope[name] = value
+      end
+      nil
     end
   end
   
