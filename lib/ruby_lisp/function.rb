@@ -2,6 +2,28 @@ module RubyLisp
   class Function
   end
   
+  
+  class UserFunction < Function
+    
+    def initialize(scope, function_definition)
+      @scope = scope.clonify
+      @function_definition = function_definition
+    end
+    
+    def call(scope, args)
+      r = nil
+      @function_definition.each{|x| r = x.eval(@scope)}
+      r
+    end
+    
+  end
+  
+  class LambdaExpression < Function
+    def call(scope, args)
+      UserFunction.new(scope, args[1..-1])
+    end
+  end
+  
   class ArithmeticFunction < Function
     def initialize(value)
       @value = value
@@ -21,10 +43,11 @@ module RubyLisp
     end
   end
   
-  class IfStatement < Function
+  class IfExpression < Function
     def call(scope, args)
       args[0].eval(scope) ? args[1].eval(scope) : args[2].eval(scope)
     end
   end
+    
 end
 

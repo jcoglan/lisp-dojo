@@ -2,7 +2,6 @@ RubyLisp::Function
 
 module RubyLisp::Identifier
   def eval(scope)
-    # Whoop yea, sepical caseees.
     case value
     when '+', '-', '*', '/', '>=', '<=', '<', '>'
       return RubyLisp::ArithmeticFunction.new(value)
@@ -11,7 +10,9 @@ module RubyLisp::Identifier
     when 'define'
       return RubyLisp::DefineStatement.new
     when 'if'
-      return RubyLisp::IfStatement.new
+      return RubyLisp::IfExpression.new
+    when 'lambda'
+      return RubyLisp::LambdaExpression.new
     else
       scope[value] or raise "Unknown identifier #{value}"
     end

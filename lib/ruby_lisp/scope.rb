@@ -1,5 +1,7 @@
 module RubyLisp
   class Scope
+    attr_accessor :bindering
+    
     def []=(name, value)
       bindering[name] = value
     end
@@ -9,7 +11,13 @@ module RubyLisp
     end
     
     def bindering
-      @binding ||= {}
+      @bindering ||= {}
+    end
+    
+    def clonify
+      s = Scope.new
+      s.bindering = bindering.dup
+      s
     end
   end
   
