@@ -34,3 +34,12 @@ Feature: Variables
     """
     Then I should get "15"
 
+  @step5
+  Scenario: Storing a result in a variable
+    When I run the program
+    """
+      (define k (+ (/ 21 3) 2))
+      k
+    """
+    Then I should get "9"
+

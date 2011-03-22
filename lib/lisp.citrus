@@ -8,7 +8,11 @@ grammar Lisp
   end
   
   rule expression
-    list | boolean | number | identifier
+    list | atom
+  end
+  
+  rule atom
+    (expression:(boolean | number | identifier) !(!delimiter .)) <RubyLisp::Cell>
   end
   
   rule list
