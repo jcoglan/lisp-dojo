@@ -34,3 +34,7 @@ end
 require 'citrus'
 Citrus.require(RubyLisp::ROOT + '/lisp.citrus')
 
+def parse(source)
+  RubyLisp.parse(source)
+end
+
