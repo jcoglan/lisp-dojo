@@ -8,8 +8,10 @@ module RubyLisp::Identifier
       return RubyLisp::ArithmeticFunction.new(value)
     when '='
       return RubyLisp::ArithmeticFunction.new(value + '=' )
+    when 'define'
+      return RubyLisp::DefineStatement.new
     else
-      scope[value] or raise 'hell'
+      scope[value] or raise "Unknown identifier #{value}"
     end
   end
 end

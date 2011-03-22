@@ -1,9 +1,9 @@
 module RubyLisp::List
   def eval(scope)
-    items = captures[:cell].map{|c| c.eval(scope)}
-    function = items[0]
+    items = captures[:cell]
+    function = items[0].eval(scope)
     args = items[1..-1]
-    function.call(args)
+    function.call(scope, args)
   end
 end
 
