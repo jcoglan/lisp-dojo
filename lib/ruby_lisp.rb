@@ -8,6 +8,7 @@ module RubyLisp
   autoload :Scope,         ROOT + '/ruby_lisp/scope'
   autoload :TopLevelScope, ROOT + '/ruby_lisp/scope'
   autoload :Function,      ROOT + '/ruby_lisp/function'
+  autoload :PlusFunction,      ROOT + '/ruby_lisp/function'
   
   autoload :Boolean,    ROOT + '/ruby_lisp/boolean'
   autoload :List,       ROOT + '/ruby_lisp/list'
