@@ -20,5 +20,11 @@ module RubyLisp
       scope[args[0].value] = args[1].eval(scope)
     end
   end
+  
+  class IfStatement < Function
+    def call(scope, args)
+      args[0].eval(scope) ? args[1].eval(scope) : args[2].eval(scope)
+    end
+  end
 end
 
