@@ -16,6 +16,11 @@ module RubyLisp
       raise "Undefined variable: #{name}" if value.nil?
       value
     end
+    
+    # Shorthand for making builtins
+    def function(name, &block)
+      self[name] = Function.new(&block)
+    end
   end
   
   class TopLevelScope < Scope
@@ -24,17 +29,17 @@ module RubyLisp
       # The top level is special, and defines the built-in functions
       
       # We can implement builtins as Ruby blocks
-      self['+'] = Function.new { |a,b| a + b }
-      self['-'] = Function.new { |a,b| a - b }
-      self['*'] = Function.new { |a,b| a * b }
-      self['/'] = Function.new { |a,b| a / b }
+      function('+') { |a,b| a + b }
+      function('-') { |a,b| a - b }
+      function('*') { |a,b| a * b }
+      function('/') { |a,b| a / b }
       
-      self['<']  = Function.new { |a,b| a <  b }
-      self['<='] = Function.new { |a,b| a <= b }
-      self['>']  = Function.new { |a,b| a >  b }
-      self['>='] = Function.new { |a,b| a >= b }
+      function('<')  { |a,b| a <  b }
+      function('<=') { |a,b| a <= b }
+      function('>')  { |a,b| a >  b }
+      function('>=') { |a,b| a >= b }
       
-      self['='] = Function.new { |a,b| a == b }
+      function('=') { |a,b| a == b }
     end
   end
 end
