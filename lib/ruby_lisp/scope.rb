@@ -45,11 +45,18 @@ module RubyLisp
       
       function('=') { |a,b| a == b }
       
-      # 'define' is not a regular function as it does not
-      # eval all its args. We'll call it a 'syntax'
+      # The following are not a regular functions as they does not
+      # eval all their args. We'll call them 'syntaxes'
+      
+      # Eval the second arg, and store it in the variable named by the first
       syntax('define') do |scope, cells|
-        # Eval the second arg, and store it in the variable named by the first
         scope[cells[0].value] = cells[1].eval(scope)
+      end
+      
+      # Eval the first arg. If true, eval the second, else eval the third
+      syntax('if') do |scope, cells|
+        which = cells[0].eval(scope) ? cells[1] : cells[2]
+        which.eval(scope)
       end
     end
   end
