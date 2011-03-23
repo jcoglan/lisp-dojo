@@ -1,8 +1,11 @@
 module RubyLisp
   class Scope
-    def initialize
-      # A Scope's job is to store variables
+    def initialize(parent = nil)
+      # A Scope's job is to store variables. It may have
+      # a parent scope, that it defers to if asked for
+      # a variable it doesn't own
       @vars = {}
+      @parent = parent
     end
     
     # Backend for the 'define' keyword
@@ -13,8 +16,9 @@ module RubyLisp
     # Backend for resolving variable references
     def [](name)
       value = @vars[name]
-      raise "Undefined variable: #{name}" if value.nil?
-      value
+      raise "Undefined variable: #{name}" if value.nil? and not @parent
+      # Defer to the parent if we don't know the variable
+      value.nil? ? @parent[name] : value
     end
     
     # Shorthand for making builtins
@@ -61,8 +65,9 @@ module RubyLisp
       
       # Lambda is a keyword that creates new functions
       syntax('lambda') do |scope, cells|
+        params = cells.first.expression.captures[:cell]
         body = cells[1..-1]
-        Function.new(body)
+        Function.new(params, body)
       end
     end
   end
