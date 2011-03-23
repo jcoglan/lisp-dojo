@@ -21,6 +21,10 @@ module RubyLisp
     def function(name, &block)
       self[name] = Function.new(&block)
     end
+    
+    def syntax(name, &block)
+      self[name] = Syntax.new(&block)
+    end
   end
   
   class TopLevelScope < Scope
@@ -40,6 +44,13 @@ module RubyLisp
       function('>=') { |a,b| a >= b }
       
       function('=') { |a,b| a == b }
+      
+      # 'define' is not a regular function as it does not
+      # eval all its args. We'll call it a 'syntax'
+      syntax('define') do |scope, cells|
+        # Eval the second arg, and store it in the variable named by the first
+        scope[cells[0].value] = cells[1].eval(scope)
+      end
     end
   end
 end
