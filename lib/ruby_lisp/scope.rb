@@ -58,6 +58,9 @@ module RubyLisp
         which = cells[0].eval(scope) ? cells[1] : cells[2]
         which.eval(scope)
       end
+      
+      # Lambda is a keyword that creates new functions
+      syntax('lambda') { Function.new }
     end
   end
 end
