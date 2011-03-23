@@ -60,7 +60,10 @@ module RubyLisp
       end
       
       # Lambda is a keyword that creates new functions
-      syntax('lambda') { Function.new }
+      syntax('lambda') do |scope, cells|
+        body = cells[1..-1]
+        Function.new(body)
+      end
     end
   end
 end
