@@ -23,7 +23,18 @@ module RubyLisp
       super
       # The top level is special, and defines the built-in functions
       
-      self['+'] = Function.new
+      # We can implement builtins as Ruby blocks
+      self['+'] = Function.new { |a,b| a + b }
+      self['-'] = Function.new { |a,b| a - b }
+      self['*'] = Function.new { |a,b| a * b }
+      self['/'] = Function.new { |a,b| a / b }
+      
+      self['<']  = Function.new { |a,b| a <  b }
+      self['<='] = Function.new { |a,b| a <= b }
+      self['>']  = Function.new { |a,b| a >  b }
+      self['>='] = Function.new { |a,b| a >= b }
+      
+      self['='] = Function.new { |a,b| a == b }
     end
   end
 end
