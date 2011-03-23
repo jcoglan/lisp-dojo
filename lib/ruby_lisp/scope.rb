@@ -60,7 +60,8 @@ module RubyLisp
       # Eval the first arg. If true, eval the second, else eval the third
       syntax('if') do |scope, cells|
         which = cells[0].eval(scope) ? cells[1] : cells[2]
-        which.eval(scope)
+        # if-branches are considered to be in 'tail position'
+        Frame.new(which, scope)
       end
       
       # Lambda is a keyword that creates new functions

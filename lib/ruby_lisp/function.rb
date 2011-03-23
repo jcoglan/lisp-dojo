@@ -29,7 +29,10 @@ module RubyLisp
         scope[name.value] = args[i]
       end
       
-      @body.map { |c| c.eval(scope) }.last
+      # Eval all but the tail expression and return the
+      # tail in a Frame with the current scope
+      @body[0..-2].each { |c| c.eval(scope) }
+      Frame.new(@body.last, scope)
     end
   end
   
