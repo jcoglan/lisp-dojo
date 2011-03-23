@@ -1,10 +1,11 @@
 module RubyLisp
   class Function
-    def initialize(params = nil, body = nil, &block)
+    def initialize(lexical_scope, params = nil, body = nil, &block)
       # 'Native' functions are implemented as Ruby Procs,
       # Library and user functions are Lisp trees
       @params = params
       @body = body || block
+      @lexical_scope = lexical_scope
     end
     
     # Regular functions evaluate all their arguments
@@ -20,9 +21,9 @@ module RubyLisp
       # We MUST create a new scope or the variables we set
       # will clobber variables elsewhere in the call stack,
       # which breaks recursive functions. We inherit from the
-      # calling scope so we can still 'see' variables and
+      # lexical scope so we can still 'see' variables and
       # functions defined outside this function
-      scope = Scope.new(calling_scope)
+      scope = Scope.new(@lexical_scope)
       
       @params.each_with_index do |name, i|
         scope[name.value] = args[i]

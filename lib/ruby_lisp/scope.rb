@@ -23,11 +23,11 @@ module RubyLisp
     
     # Shorthand for making builtins
     def function(name, &block)
-      self[name] = Function.new(&block)
+      self[name] = Function.new(self, &block)
     end
     
     def syntax(name, &block)
-      self[name] = Syntax.new(&block)
+      self[name] = Syntax.new(self, &block)
     end
   end
   
@@ -67,7 +67,7 @@ module RubyLisp
       syntax('lambda') do |scope, cells|
         params = cells.first.expression.captures[:cell]
         body = cells[1..-1]
-        Function.new(params, body)
+        Function.new(scope, params, body)
       end
     end
   end
